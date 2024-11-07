@@ -2,6 +2,7 @@
 mod tests {
     use std::collections::HashMap;
     use structx::*;
+    use structx::named_args::*;
 
     #[test]
     fn anonymous_struct() {
@@ -240,6 +241,25 @@ mod tests {
         assert_eq!(
             x.traverse(optics!(_1.Left._0._mapped.Some.a)),
             vec!["A".to_string(), "C".to_string()]
+        );
+    }
+
+    #[cfg(feature = "serde")]
+    #[test]
+    fn to_json() {
+        let a = structx! {
+            foo: "heheheha",
+            bar: 12
+        };
+
+        let out = serde_json::to_string(&a);
+
+        assert!(out.is_ok());
+
+        // out of order because
+        assert_eq!(
+            out.unwrap(),
+            r#"{"bar":12,"foo":"heheheha"}"#
         );
     }
 }

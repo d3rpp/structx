@@ -8,6 +8,7 @@ publish = false
 [dependencies]
 structx = { path = "../structx", version = "0.1.10" }
 lens-rs = { version = "0.3", features = ["structx"], optional = true }
+serde_json = { version = "^1.0", optional = true }
 
 [build-dependencies]
 inwelling = "0.5"
@@ -17,4 +18,7 @@ structx = true
 lens-rs_generator = true
 
 [features]
-lens = [ "lens-rs", "structx/lens-rs" ]
+default = ["serde"]
+
+lens = ["lens-rs", "structx/lens-rs"]
+serde = ["serde_json", "structx/serde"]

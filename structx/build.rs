@@ -364,6 +364,12 @@ fn main() {
         ("", "")
     };
 
+    let serde_derivation = if cfg!(feature = "serde") {
+        "#[derive(::serde::Serialize, ::serde::Deserialize)]"
+    } else {
+        ""
+    };
+
     let output = struct_map
         .into_iter()
         .fold(String::new(), |acc, (struct_name, field_idents)| {
@@ -372,6 +378,7 @@ fn main() {
 #[allow( non_camel_case_types )]
 {lens_traits}
 #[derive( Clone, Copy, Debug, Default, PartialEq, Eq, PartialOrd, Ord, Hash )]
+{serde_derivation}
 pub struct {struct_name}<{generics}>{{{fields}
 }}
 "#,

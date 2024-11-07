@@ -24,18 +24,19 @@
 //!
 //! Add the following in your build.rs file:
 //!
-//! ```rust
+//! ```
+//! # mod inwelling { use std::fmt::Display; pub fn to(_a: impl Display) {} }
 //! inwelling::to( "structx" );
 //! ```
 //! Add the following in your .rs files:
 //!
-//! ```rust,no_run
+//! ```no_run
 //! use structx::*;
 //! ```
 //!
 //! If you want to use named arguments, add the following:
 //!
-//! ```rust,no_run
+//! ```no_run
 //! use structx::named_args::*;
 //! ```
 //!
@@ -52,7 +53,8 @@
 //!
 //! ## Examples of anonymous struct's values
 //!
-//! ```rust,no_run
+//! ```ignore
+//! # use structx::structx;
 //! let foo = structx!{ i: 3, b: true };
 //! let bar = structx!{ x, y };
 //! ```
@@ -63,7 +65,8 @@
 //!
 //! ## Examples of anonymous struct's types
 //!
-//! ```rust,no_run
+//! ```no_run
+//! # use structx::*;
 //! fn foo( x: i32, y: i32 ) -> Structx!{ x: i32, y: i32 } {
 //!     structx!{ x, y: y+1 }
 //! }
@@ -72,7 +75,7 @@
 //!
 //! Clone, Copy, Debug, Default, PartialEq, Eq, PartialOrd, Ord, Hash.
 //!
-//! ```rust
+//! ```ignore
 //! let a = structx!{ width :  800, height: 600 };
 //! let b = structx!{ height:  600, width : 800 };
 //! let c = structx!{ width : 1024, height: 768 };
@@ -84,15 +87,16 @@
 //!
 //! At definition site, add attributes `#[named_args]` to functions.
 //!
-//! ```rust,no_run
+//! ```ignore
+//! # use structx::named_args::named_args;
 //! #[named_args]
 //! fn set_size( width: u32, height: u32 ) { todo!() }
 //! ```
 //!
 //! At call site, wrap arguments with `args!{}`.
 //!
-//! ```rust,no_run
-//! set_size( args!{ width: 1024, height: 768 });
+//! ```ignore
+//! set_size( args!{ width: 1024u32, height: 768u32 });
 //! ```
 //!
 //! # License
